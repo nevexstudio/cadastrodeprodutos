@@ -1,26 +1,3 @@
-
-
-// ===== LOGIN =====
-const usuarios = [
-  { usuario: "cadastro", senha: "cadastro2025" },
-  { usuario: "user", senha: "abcd" }
-];
-
-function validarLogin() {
-  const user = document.getElementById("loginUser").value.trim();
-  const pass = document.getElementById("loginPass").value.trim();
-  const erro = document.getElementById("loginError");
-
-  const autorizado = usuarios.find(u => u.usuario === user && u.senha === pass);
-
-  if (autorizado) {
-    document.getElementById("loginScreen").style.display = "none";
-    document.getElementById("mainApp").style.display = "block";
-  } else {
-    erro.textContent = "Usuário ou senha inválidos!";
-  }
-}
-
 // ==== LISTAS EXTRAS GERADAS DA PLANILHA ====
 const LINHAS = [
   { codigo: "C1K0", nome: "ACESSORIOS" },
@@ -2858,6 +2835,30 @@ function adicionarProduto() {
     alert('Preencha Código, Tipo Cód Preenchimento, Descrição, Variável e Marca.');
     return;
   }
+
+
+
+// ===== LOGIN =====
+const usuarios = [
+  { usuario: "cadastro", senha: "cadastro2025" },
+  { usuario: "user", senha: "abcd" }
+];
+
+function validarLogin() {
+  const user = document.getElementById("loginUser").value.trim();
+  const pass = document.getElementById("loginPass").value.trim();
+  const erro = document.getElementById("loginError");
+
+  const autorizado = usuarios.find(u => u.usuario === user && u.senha === pass);
+
+  if (autorizado) {
+    document.getElementById("loginScreen").style.display = "none";
+    document.getElementById("mainApp").style.display = "block";
+  } else {
+    erro.textContent = "Usuário ou senha inválidos!";
+  }
+}
+
 
 
   const produto = {};
