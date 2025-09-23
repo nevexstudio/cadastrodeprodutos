@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Cadastro de Produtos</title>
+  <link rel="icon" href="./img/favicon.png" type="image/png">
+  <link href="style.css" rel="stylesheet" />
+</head>
+
+<body>
+
+  <!-- ===== Tela de Login ===== -->
+<div id="loginScreen" class="login-container">
+  <div class="login-box">
+    <h2>Login Cadastro</h2>
+    <input type="text" id="loginUser" placeholder="Usuário" />
+    <input type="password" id="loginPass" placeholder="Senha" />
+    <button onclick="validarLogin()">Entrar</button>
+    <p id="loginError" class="error-msg"></p>
+    <img src="./img/logo spe.png" alt="Logo">
+  </div>
+</div>
+
+  <!-- ===== Aplicação ===== -->
+  <div id="mainApp" style="display:none;">
+
+  <div id="home" class="tela-inicial active">
+    <div class="overlay"></div>
+    <header>
+      <nav>
+        <a href="#" onclick="abrirCadastroModal()">Cadastro de Produto</a>
+        <a href="http://hc08/Reports/report/Area%20Comercial/BI/Relatorio_Produtos_v2" target="_blank">
+          Relatório de Produtos
+        </a>
+      </nav>
+    </header>
+
+    <main>
+      <h1 class="typewriter-text">BEM VINDO !</h1>
+      <h2>Cadastro de Produtos SP Equipamentos</h2>
+    </main>
+
+
+    <footer>
+      <div class="container">
+        <a href="https://spequipamentos.com.br/" target="_blank">
+          <img src="./img/logo spe.png" alt="Sua Logo" class="image">
+        </a>
+      </div>
+    </footer>
+
+    <!-- Seções adicionais -->
+    <div id="modalCadastro" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="fecharCadastroModal()">&times;</span>
+
+        <div class="form-container">
+          <!-- Fixar todos -->
+          <div class="campo">
+            <label>
+              <input type="checkbox" id="fixarTodos" onchange="toggleFixarTodos()"> Cadastro de Grades
+            </label>
+          </div>
+
+          <div class="campo">
+            <label>Código do produto</label>
+            <div class="campo-input">
+              <input id="codigo" type="text" placeholder="Gerado automaticamente" readonly />
+              <input type="checkbox" class="fixar" data-target="codigo" title="Fixar valor">
+            </div>
+          </div>
+
+          <div class="campo">
+            <label>Descrição do produto</label>
+            <div class="campo-input">
+              <input id="descricao" type="text" placeholder="Ex: Luva de segurança" maxlength="60" />
+              <input type="checkbox" class="fixar" data-target="descricao" title="Fixar valor">
+            </div>
+          </div>
+
+          <div class="campo">
+            <label>Variável do produto</label>
+            <div class="campo-input">
+              <input id="variavel" type="text" placeholder="Ex: 001" />
+              <input type="checkbox" class="fixar" data-target="variavel" title="Fixar valor">
+            </div>
+          </div>
+
+          <div class="campo">
+            <label>Tamanho do produto</label>
+            <div class="campo-input">
+              <input id="tamanho" type="text" placeholder="Ex: 33" />
+              <input type="checkbox" class="fixar" data-target="tamanho" title="Fixar valor">
+            </div>
+          </div>
+
+          <div class="campo">
+            <label>Tipo do produto</label>
+            <div class="campo-input">
+              <input list="listaTipos" id="tipo" placeholder="Digite para pesquisar...">
+              <datalist id="listaTipos"></datalist>
+              <input type="checkbox" class="fixar" data-target="tipo" title="Fixar valor">
+            </div>
+          </div>
+
+
+          <div class="campo">
+            <label>Tipo Código Preenchimento</label>
+            <div class="campo-input">
+              <input list="listaTipoCodPreenchimento" id="tipoCodPreenchimento" placeholder="Digite para pesquisar...">
+              <datalist id="listaTipoCodPreenchimento"></datalist>
+              <input type="checkbox" class="fixar" data-target="tipoCodPreenchimento" title="Fixar valor">
+            </div>
+          </div>
+
+
+          <div class="campo">
+            <label>Unidade de medida do Produto</label>
+            <div class="campo-input">
+              <input list="listaUnidades" id="punidade" placeholder="Digite para pesquisar...">
+              <datalist id="listaUnidades"></datalist>
+              <input type="checkbox" class="fixar" data-target="punidade" title="Fixar valor">
+            </div>
+          </div>
+
+          <div class="campo">
+            <label>Armazem do produto</label>
+            <div class="campo-input">
+              <input id="armazem" list="listaArmazens" type="text" placeholder="Ex: 01" />
+              <input type="checkbox" class="fixar" data-target="armazem" title="Fixar valor">
+            </div>
+          </div>
+
+          <div class="campo">
+            <label for="grupo">Grupo</label>
+            <div class="campo-input">
+              <input id="grupo" type="text" list="listaGrupos" placeholder="Selecione o grupo">
+              <input type="checkbox" class="fixar" data-target="grupo" title="Fixar valor">
+            </div>
+          </div>
+          <datalist id="listaGrupos"></datalist>
+
+          <div class="campo">
+            <label>Bloqueio Geral do Produto</label>
+            <div class="campo-input">
+              <input list="listaBlockg" id="blockg" list="listaBloqueios" placeholder="Digite para pesquisar...">
+              <datalist id="listaBlockg"></datalist>
+              <input type="checkbox" class="fixar" data-target="blockg" title="Fixar valor">
+            </div>
+          </div>
+
+          <div class="campo">
+            <label>Segunda Unidade do produto</label>
+            <div class="campo-input">
+              <input id="sunidade" type="text" placeholder="Ex: PR" />
+              <input type="checkbox" class="fixar" data-target="sunidade" title="Fixar valor">
+            </div>
+          </div>
+
+          <div class="campo">
+            <label>Fator de Conversão do produto</label>
+            <div class="campo-input">
+              <input id="fator" type="text" placeholder="Ex: 100" />
+              <input type="checkbox" class="fixar" data-target="fator" title="Fixar valor">
+            </div>
+          </div>
+
+          <div class="campo">
+            <label>Tipo de Conversão do Produto</label>
+            <div class="campo-input">
+              <input list="listaTipoFator" id="tipofator" placeholder="Digite para pesquisar...">
+              <datalist id="listaTipoFator"></datalist>
+              <input type="checkbox" class="fixar" data-target="tipofator" title="Fixar valor">
+            </div>
+          </div>
+
+          <div class="campo">
+            <label>Fornecedor Padrão do produto</label>
+            <div class="campo-input">
+              <input id="fornecedor" type="text" placeholder="Ex: 000500" />
+              <input type="checkbox" class="fixar" data-target="fornecedor" title="Fixar valor">
+            </div>
+          </div>
+
+          <div class="campo">
+            <label>Loja padrão do Produto</label>
+            <div class="campo-input">
+              <input list="listaLojas" id="loja" list="listaLojas" placeholder="Digite para pesquisar...">
+              <datalist id="listaLojas"></datalist>
+              <input type="checkbox" class="fixar" data-target="loja" title="Fixar valor">
+            </div>
+          </div>
+
+          <div class="campo">
+            <label>Fornecedor Canal do Produto</label>
+            <div class="campo-input">
+              <input list="listaFornCanal" id="forncanal" placeholder="Digite para pesquisar...">
+              <datalist id="listaFornCanal"></datalist>
+              <input type="checkbox" class="fixar" data-target="forncanal" title="Fixar valor">
+            </div>
+          </div>
+
+          <div class="campo">
+            <label for="codigolinha">Código Linha</label>
+            <div class="campo-input">
+              <input id="codigolinha" type="text" list="listaLinhas" placeholder="Selecione a linha">
+              <input type="checkbox" class="fixar" data-target="codigolinha" title="Fixar valor">
+            </div>
+          </div>
+          <datalist id="listaLinhas"></datalist>
+
+          <div class="campo">
+            <label>Marca do produto</label>
+            <div class="campo-input">
+              <input list="listaMarcas" id="marca" placeholder="Digite para pesquisar...">
+              <datalist id="listaMarcas"></datalist>
+              <input type="checkbox" class="fixar" data-target="marca" title="Fixar valor">
+            </div>
+          </div>
+
+          <div class="campo">
+            <label>Produto Vendavel</label>
+            <div class="campo-input">
+              <input list="listaVendavel" id="vendavel" placeholder="Digite para pesquisar...">
+              <datalist id="listaVendavel"></datalist>
+              <input type="checkbox" class="fixar" data-target="vendavel" title="Fixar valor">
+            </div>
+          </div>
+
+          <div class="campo">
+            <label>Origem do produto</label>
+            <div class="campo-input">
+              <input id="origem" type="text" placeholder="Ex: 0" />
+              <input type="checkbox" class="fixar" data-target="origem" title="Fixar valor">
+            </div>
+          </div>
+
+          <div class="campo">
+            <label>NCM do produto</label>
+            <div class="campo-input">
+              <input id="ncm" type="text" placeholder="Ex: 12345678" />
+              <input type="checkbox" class="fixar" data-target="ncm" title="Fixar valor">
+            </div>
+          </div>
+
+          <div class="campo">
+            <label>Multiplo do produto</label>
+            <div class="campo-input">
+              <input id="multiplo" type="text" placeholder="Ex: 1" />
+              <input type="checkbox" class="fixar" data-target="multiplo" title="Fixar valor">
+            </div>
+          </div>
+
+          <div class="campo">
+            <label>Prazo de Entrega do produto</label>
+            <div class="campo-input">
+              <input id="prazo" type="text" placeholder="Ex: 7" />
+              <input type="checkbox" class="fixar" data-target="prazo" title="Fixar valor">
+            </div>
+          </div>
+
+          <div class="campo">
+            <label>Observação do produto</label>
+            <div class="campo-input">
+              <input id="obs" type="text" placeholder="Ex: Observações" />
+              <input type="checkbox" class="fixar" data-target="obs" title="Fixar valor">
+            </div>
+          </div>
+
+          <div class="campo">
+            <label>CA do produto</label>
+            <div class="campo-input">
+              <input id="ca" type="text" placeholder="Ex: 12345" />
+              <input type="checkbox" class="fixar" data-target="ca" title="Fixar valor">
+            </div>
+          </div>
+
+          <div class="campo">
+            <label>Vencimento CA do produto</label>
+            <div class="campo-input">
+              <input id="vencimentoca" type="text" placeholder="Ex: 31/12/2026" />
+              <input type="checkbox" class="fixar" data-target="vencimentoca" title="Fixar valor">
+            </div>
+          </div>
+
+          <div class="campo">
+            <label>Referência do produto</label>
+            <div class="campo-input">
+              <input id="referencia" type="text" placeholder="Ex: REF001" />
+              <input type="checkbox" class="fixar" data-target="referencia" title="Fixar valor">
+            </div>
+          </div>
+
+          <div class="campo">
+            <label>Bloqueado P/Compras</label>
+            <div class="campo-input">
+              <input list="listaCompras" id="compras" placeholder="Digite para pesquisar...">
+              <datalist id="listaCompras"></datalist>
+              <input type="checkbox" class="fixar" data-target="compras" title="Fixar valor">
+            </div>
+          </div>
+
+          <div class="campo">
+            <label>Tipo de Bloqueio do produto</label>
+            <div class="campo-input">
+              <input id="tipoblock" type="text" placeholder="Ex: 2" />
+              <input type="checkbox" class="fixar" data-target="tipoblock" title="Fixar valor">
+            </div>
+          </div>
+
+          <div class="campo">
+            <label>Peso Líquido do produto</label>
+            <div class="campo-input">
+              <input id="pesol" type="text" placeholder="Ex: 0.01" />
+              <input type="checkbox" class="fixar" data-target="pesol" title="Fixar valor">
+            </div>
+          </div>
+
+          <div class="campo">
+            <label>Peso Bruto do produto</label>
+            <div class="campo-input">
+              <input id="pesob" type="text" placeholder="Ex: 0.02" />
+              <input type="checkbox" class="fixar" data-target="pesob" title="Fixar valor">
+            </div>
+          </div>
+
+          <div class="campo">
+            <label>Produto Customizado</label>
+            <div class="campo-input">
+              <input list="listaCustomizado" id="customizado" placeholder="Digite para pesquisar...">
+              <datalist id="listaCustomizado"></datalist>
+              <input type="checkbox" class="fixar" data-target="customizado" title="Fixar valor">
+            </div>
+          </div>
+
+          <button class="centralizar-botao" onclick="adicionarProduto()">Adicionar Produto</button>
+        </div>
+
+        <div style="overflow-y: scroll;">
+          <table id="tabelaProdutos">
+            <thead>
+              <tr>
+                <th>Selecionar</th>
+                <th>Código</th>
+                <th>Descrição</th>
+                <th>Tamanho</th>
+                <th>Tipo</th>
+                <th>Unidade Medida</th>
+                <th>Armazem</th>
+                <th>Grupo</th>
+                <th>Bloqueado</th>
+                <th>Segunda Unidade de Medida</th>
+                <th>Fator de Conversão</th>
+                <th>Tipo de Conversão</th>
+                <th>Fornecedor Padrão</th>
+                <th>Loja Padrão</th>
+                <th>Fornecedor Canal</th>
+                <th>Cod. Linha</th>
+                <th>Marca Produto</th>
+                <th>Prod. Venda</th>
+                <th>Origem</th>
+                <th>NCM</th>
+                <th>Quantidade de Embalagem</th>
+                <th>Prazo Entrega</th>
+                <th>Observação</th>
+                <th>Certificado de Aprovação</th>
+                <th>Vencimento do Certificado</th>
+                <th>Cód. Comercial</th>
+                <th>Bloq. Compras</th>
+                <th>Tipo de Bloqueio</th>
+                <th>Peso Liq</th>
+                <th>Peso Brut</th>
+                <th>Prod.Custom</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <button onclick="exportarCSV()">Gerar CSV</button>
+        <button class="excluir" onclick="excluirSelecionados()">Excluir Selecionados</button>
+
+      </div>
+
+      <div id="relatorio" class="section hidden">
+        <h2></h2>
+        <!-- Aqui vai a tabela com produtos cadastrados -->
+      </div>
+
+      <div id="fotos" class="section hidden">
+        <h2></h2>
+        <!-- Aqui vai o upload/gestão de fotos -->
+      </div>
+      <script src="script.js"></script>
+
+      </section>
+
+      <datalist id="listaLinhas"></datalist>
+      <datalist id="listaBloqueios"></datalist>
+      <datalist id="listaTiposConv"></datalist>
+      <datalist id="listaLojas"></datalist>
+      <datalist id="listaArmazens"></datalist>
+
+  </div>
+</body>
+
+</html>
