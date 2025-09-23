@@ -1,3 +1,4 @@
+
 // ==== LISTAS EXTRAS GERADAS DA PLANILHA ====
 const LINHAS = [
   { codigo: "C1K0", nome: "ACESSORIOS" },
@@ -2837,30 +2838,6 @@ function adicionarProduto() {
   }
 
 
-
-// ===== LOGIN =====
-const usuarios = [
-  { usuario: "cadastro", senha: "cadastro2025" },
-  { usuario: "user", senha: "abcd" }
-];
-
-function validarLogin() {
-  const user = document.getElementById("loginUser").value.trim();
-  const pass = document.getElementById("loginPass").value.trim();
-  const erro = document.getElementById("loginError");
-
-  const autorizado = usuarios.find(u => u.usuario === user && u.senha === pass);
-
-  if (autorizado) {
-    document.getElementById("loginScreen").style.display = "none";
-    document.getElementById("mainApp").style.display = "block";
-  } else {
-    erro.textContent = "Usuário ou senha inválidos!";
-  }
-}
-
-
-
   const produto = {};
 
   FORM_FIELDS.forEach(campoId => {
@@ -3130,3 +3107,25 @@ loginScreen.addEventListener("keydown", function (e) {
     validarLogin();
   }
 });
+
+
+// ===== LOGIN =====
+const usuarios = [
+  { usuario: "cadastro", senha: "cadastro2025" },
+  { usuario: "user", senha: "abcd" }
+];
+
+function validarLogin() {
+  const user = document.getElementById("loginUser").value.trim();
+  const pass = document.getElementById("loginPass").value.trim();
+  const erro = document.getElementById("loginError");
+
+  const autorizado = usuarios.find(u => u.usuario === user && u.senha === pass);
+
+  if (autorizado) {
+    document.getElementById("loginScreen").style.display = "none";
+    document.getElementById("mainApp").style.display = "block";
+  } else {
+    erro.textContent = "Usuário ou senha inválidos!";
+  }
+}
