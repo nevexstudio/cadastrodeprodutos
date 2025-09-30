@@ -127,7 +127,7 @@
           <div class="campo">
             <label>Armazem do produto</label>
             <div class="campo-input">
-              <input id="armazem" list="listaArmazens" type="text" placeholder="Ex: 01" />
+              <input id="armazem" type="text" value="01" readonly />
               <input type="checkbox" class="fixar" data-target="armazem" title="Fixar valor">
             </div>
           </div>
@@ -144,7 +144,7 @@
           <div class="campo">
             <label>Bloqueio Geral do Produto</label>
             <div class="campo-input">
-              <input list="listaBlockg" id="blockg" list="listaBloqueios" placeholder="Digite para pesquisar...">
+              <input id="blockg" type="text" value="2" readonly />
               <datalist id="listaBlockg"></datalist>
               <input type="checkbox" class="fixar" data-target="blockg" title="Fixar valor">
             </div>
@@ -169,7 +169,7 @@
           <div class="campo">
             <label>Tipo de Conversão do Produto</label>
             <div class="campo-input">
-              <input list="listaTipoFator" id="tipofator" placeholder="Digite para pesquisar...">
+              <input id="tipofator" type="text" value="M" readonly />
               <datalist id="listaTipoFator"></datalist>
               <input type="checkbox" class="fixar" data-target="tipofator" title="Fixar valor">
             </div>
@@ -195,7 +195,7 @@
           <div class="campo">
             <label>Fornecedor Canal do Produto</label>
             <div class="campo-input">
-              <input list="listaFornCanal" id="forncanal" placeholder="Digite para pesquisar...">
+              <input id="forncanal" type="text" value="N" readonly />
               <datalist id="listaFornCanal"></datalist>
               <input type="checkbox" class="fixar" data-target="forncanal" title="Fixar valor">
             </div>
@@ -222,7 +222,7 @@
           <div class="campo">
             <label>Produto Vendavel</label>
             <div class="campo-input">
-              <input list="listaVendavel" id="vendavel" placeholder="Digite para pesquisar...">
+              <input id="vendavel" type="text" value="S" readonly />
               <datalist id="listaVendavel"></datalist>
               <input type="checkbox" class="fixar" data-target="vendavel" title="Fixar valor">
             </div>
@@ -295,7 +295,7 @@
           <div class="campo">
             <label>Bloqueado P/Compras</label>
             <div class="campo-input">
-              <input list="listaCompras" id="compras" placeholder="Digite para pesquisar...">
+              <input id="compras" type="text" value="N" readonly />
               <datalist id="listaCompras"></datalist>
               <input type="checkbox" class="fixar" data-target="compras" title="Fixar valor">
             </div>
@@ -380,6 +380,7 @@
 
         <button onclick="exportarCSV()">Gerar CSV</button>
         <button class="excluir" onclick="excluirSelecionados()">Excluir Selecionados</button>
+        <button class="excluir" onclick="excluirTodos()">Excluir Todos</button>
 
       </div>
 
