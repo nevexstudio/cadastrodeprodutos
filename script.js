@@ -1,3 +1,9 @@
+// ==========================================================
+// SCRIPT CRIADO PARA FACILITAR CADASTRO DE PRODUTOS SPE
+// Observação: Script de uso exclusivo.
+// By: Cauã Ribeiro
+// ==========================================================
+
 
 // ==== LISTAS EXTRAS GERADAS DA PLANILHA ====
 const LINHAS = [
@@ -315,6 +321,19 @@ const UNIDADES = [
   { codigo: "UN", nome: "UNIDADE" }
 ];
 
+
+const ORIGENS = [
+  { codigo: "0", nome: "0 - Nacional, exceto as indicadas nos códigos 3 a 5" },
+  { codigo: "1", nome: "1 - Estrangeira – Importação direta, exceto a indicada no código 6" },
+  { codigo: "2", nome: "2 - Estrangeira – Adquirida no mercado interno, exceto a indicada no código 7" },
+  { codigo: "3", nome: "3 - Nacional, mercadoria ou bem com Conteúdo de Importação superior a 40% e inferior ou igual a 70%" },
+  { codigo: "4", nome: "4 - Nacional, cuja produção tenha sido feita em conformidade com os processos produtivos básicos" },
+  { codigo: "5", nome: "5 - Nacional, mercadoria ou bem com Conteúdo de Importação inferior ou igual a 40%" },
+  { codigo: "6", nome: "6 - Estrangeira – Importação direta, sem similar nacional" },
+  { codigo: "7", nome: "7 - Estrangeira – Adquirida no mercado interno, sem similar nacional" },
+  { codigo: "8", nome: "8 - Nacional, mercadoria ou bem com Conteúdo de Importação superior a 70%" }
+];
+
 const ARMAZENS = [
   { codigo: "1", nome: "1.0" }
 ];
@@ -333,8 +352,6 @@ function popularLista(id, lista) {
     datalist.appendChild(option);
   });
 }
-
-popularLista("listaUnidades", UNIDADES);
 
 // ==== RESTANTE DO SCRIPT ORIGINAL ====
 
@@ -2579,6 +2596,19 @@ function iniciarPreenchimento() {
       listaCustomizado.appendChild(o);
     });
   }
+
+
+  // Popular datalists de listas estáticas (moved here para garantir que o DOM exista)
+  try {
+    popularLista("listaUnidades", UNIDADES);
+  } catch (e) { /* ignore */ }
+  try {
+    popularLista("listaOrigens", ORIGENS);
+  } catch (e) { /* ignore */ }
+
+
+  // Aplicar remoção de acentos no campo "Observação"
+  removerAcentos("obs");
 }
 
 // Linhas
@@ -2690,7 +2720,25 @@ function adicionarProduto() {
       // dataset.codigo contem a sigla (A6). Se não achar, deixa vazio.
       produto[campoId] = option && option.dataset ? option.dataset.codigo : '';
     }
-    // Campos numéricos / texto comuns
+    
+    // Origem: salvar o código correspondente (ex.: 0,1,2...)
+    else if (campoId === 'origem') {
+      const inputVal = (document.getElementById('origem').value || '').trim();
+      // procura opção no datalist
+      const option = Array.from(document.getElementById('listaOrigens').options)
+        .find(o => (o.value || '').toUpperCase() === inputVal.toUpperCase());
+      if (option && option.dataset && option.dataset.codigo) {
+        produto[campoId] = option.dataset.codigo;
+      } else {
+        // fallback: procura no array ORIGENS pelo nome ou código
+        let found = undefined;
+        if (typeof ORIGENS !== 'undefined') {
+          found = ORIGENS.find(x => (x.nome || '').toUpperCase() === inputVal.toUpperCase() || (x.codigo || '') === inputVal);
+        }
+        produto[campoId] = found ? found.codigo : '';
+      }
+    }
+// Campos numéricos / texto comuns
     else {
       const input = document.getElementById(campoId);
       const isCheckbox = input && input.type === 'checkbox';
@@ -2854,6 +2902,18 @@ modal.addEventListener('keydown', function (e) {
   }
 });
 
+
+
+// === Função para remover acentos de campos específicos ===
+function removerAcentos(campoId) {
+  const input = document.getElementById(campoId);
+  if (!input) return;
+  input.addEventListener("input", () => {
+    input.value = input.value
+      .normalize("NFD")              // separa base + acento
+      .replace(/[̀-ͯ]/g, ""); // remove acentos
+  });
+}
 
 window.onload = iniciarPreenchimento;
 
